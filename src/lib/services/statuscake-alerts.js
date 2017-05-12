@@ -60,11 +60,12 @@ class StatuscakeAlerts {
 
 		let outages = data.length;
 
-		return self.model.sync().then(function() {
-			return self.model.create({
-				date: dateNow,
-				outages: outages
-			})
+		return self.model.sync()
+			.then(function() {
+				return self.model.create({
+					date: dateNow,
+					outages: outages
+				});
 		});
 	}
 }

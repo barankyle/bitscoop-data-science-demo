@@ -65,11 +65,12 @@ class GithubIssues {
 
 		let issues = data.length;
 
-		return self.model.sync().then(function() {
-			return self.model.create({
-				date: dateNow,
-				issues: issues
-			})
+		return self.model.sync()
+			.then(function() {
+				return self.model.create({
+					date: dateNow,
+					issues: issues
+				});
 		});
 	}
 }

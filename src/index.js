@@ -106,7 +106,10 @@ exports.handler = function() {
 		})
 		.catch(function(err) {
 			console.log('UNSUCCESSFUL');
-			sequelize.close();
+
+			if (sequelize) {
+				sequelize.close();
+			}
 
 			return Promise.reject(err);
 		});

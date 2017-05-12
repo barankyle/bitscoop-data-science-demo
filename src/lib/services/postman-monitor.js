@@ -60,11 +60,12 @@ class PostmanMonitor {
 		let status = _.get(data, 'run.stats.assertions.failed');
 
 		console.log(status);
-		return self.model.sync().then(function() {
-			return self.model.create({
-				date: dateNow,
-				status: status
-			})
+		return self.model.sync()
+			.then(function() {
+				return self.model.create({
+					date: dateNow,
+					status: status
+				});
 		});
 	}
 }

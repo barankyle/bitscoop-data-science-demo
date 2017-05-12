@@ -74,12 +74,13 @@ class GoogleAnalytics {
 		let totalUsers = parseInt(_.get(data, 'totalsForAllResults[\'ga:users\']'));
 		let newUsers = parseInt(_.get(data, 'totalsForAllResults[\'ga:newUsers\']'));
 
-		return self.model.sync().then(function() {
-			return self.model.create({
-				date: dateNow,
-				total_users: totalUsers,
-				new_users: newUsers
-			})
+		return self.model.sync()
+			.then(function() {
+				return self.model.create({
+					date: dateNow,
+					totalUsers: totalUsers,
+					newUsers: newUsers
+				});
 		});
 	}
 }
