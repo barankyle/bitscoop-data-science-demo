@@ -64,7 +64,7 @@ We’re going to create everything from scratch so that you don’t interfere wi
 Go to [IAM roles](https://console.aws.amazon.com/iam/home#/roles) and create a new role.
 Click Select next to AWS Lambda. You will need to add three policies to this role:
 * AWSLambdaBasicExecution
-* AWSLambdaCloudFormation
+* AWSCloudFormationReadOnlyAccess
 * AWSLambdaVPCAccessExecution
 Click Next Step, give the role a name, and then click Create Role.
 This role will be used by the Lambda function to specify what it has permission to access.
@@ -73,6 +73,7 @@ Go to your [VPCs](https://console.aws.amazon.com/vpc/home#vpcs:) and create a ne
 Tag it with something like ‘bitscoop-demo’ so you can easily identify it later.
 For the IPv4 CIDR block, enter 10.0.0.0/16, or something similar if that is already taken.
 Leave IPv6 CIDR block and tenancy as their defaults and create the VPC.
+Once it’s created, select it in the list, then click the Actions dropdown, click Edit DNS Hostnames, click the Yes radio button, then save it.
 
 View your [Subnets](https://console.aws.amazon.com/vpc/home#subnets).
 You should create four new subnets.
@@ -84,12 +85,17 @@ Remember which AZ is shared between a public and private subnet for later.
 The CIDR block needs to be different for each subnet and they all need to fall within the CIDR block of the VPC; if the VPC block is 10.0.0.0/16, you could use 10.0.0.0/24, 10.0.1.0/24, 10.0.2.0/24, and 10.0.3.0/24.
 AWS will let you know if anything overlaps.
 
+Go to your [Internet Gateways](https://console.aws.amazon.com/vpc/home#igws:).
+Create a new Gateway and tag it with whatever you want.
+Once it’s created, select it in the list and click ‘Attach to VPC’, then select the ‘bitscoop-demo’ VPC and click ‘Yes, Attach’.
+
 Go view your [NAT Gateways](https://console.aws.amazon.com/vpc/home#NatGateways).
 Create a new Gateway, and for the subnet pick the public subnet that shares an AZ with a private subnet, e.g. 'public1'' in the example above.
 Click Create New EIP and then Create the gateway.
 This new gateway should have an ID nat-<ID>.
 It should be noted that, while almost everything in this demo is part of AWS’ free tier, NAT gateways are NOT free.
 They’re pretty cheap, at about $0.05 per hour and $0.05 per GB of data processed, but don’t forget to delete this when you’re done with the demo (and don’t forget to create a new one and point the private route table to the new one if you revisit this demo).
+Elastic IP’s are also not free, so don’t create any more than you need and delete the ones you do create when you’re done with the demo.
 
 Go to [Route Tables](https://console.aws.amazon.com/vpc/home#routetables) and create two new ones.
 Name one ‘public’ and the other ‘private’, and make sure they’re in the ‘bitscoop-demo’ VPC.
