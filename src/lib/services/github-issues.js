@@ -42,7 +42,7 @@ class GithubIssues {
 			return Promise.resolve('GitHub is missing some important configuration parameters.');
 		}
 
-		let map = bitscoop.map(process.env.GITHUB_MAP_ID);
+		let map = bitscoop.api(process.env.GITHUB_MAP_ID);
 		let cursor = map.endpoint('Issues').method('GET');
 
 		return cursor({

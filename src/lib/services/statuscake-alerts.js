@@ -37,7 +37,7 @@ class StatuscakeAlerts {
 			return Promise.resolve('StatusCake is missing some important configuration parameters.');
 		}
 
-		let map = bitscoop.map(process.env.STATUSCAKE_MAP_ID);
+		let map = bitscoop.api(process.env.STATUSCAKE_MAP_ID);
 		let cursor = map.endpoint('Alerts').method('GET');
 
 		return cursor({

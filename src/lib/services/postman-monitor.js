@@ -37,7 +37,7 @@ class PostmanMonitor {
 			return Promise.resolve('Postman is missing some important configuration parameters.');
 		}
 
-		let map = bitscoop.map(process.env.POSTMAN_MAP_ID);
+		let map = bitscoop.api(process.env.POSTMAN_MAP_ID);
 		let cursor = map.endpoint('RunMonitor').method('POST');
 
 		return cursor({
